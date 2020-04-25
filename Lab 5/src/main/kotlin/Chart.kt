@@ -2,16 +2,23 @@ import org.knowm.xchart.QuickChart
 import org.knowm.xchart.SwingWrapper
 import org.knowm.xchart.XYChart
 
-class Chart(
-    val xData: DoubleArray,
-    val yData: DoubleArray,
-    val chartName: String = "Chart",
-    val xName: String = "x",
-    val yName: String = "y",
-    val lineName: String = "1 line"
+class Chart (
+    private val chartName: String = "Chart",
+    private val xName: String = "x",
+    private val yName: String = "y"
 ) {
+
+    private var lines = mutableListOf<Line>()
+
+    fun add(line: Line) {
+        lines.add(line)
+    }
+
     fun draw() {
-        val chart: XYChart = QuickChart.getChart(chartName, xName, yName, lineName, xData, yData);
+        val chart: XYChart = QuickChart.getChart(chartName, xName, yName, "0, 0", doubleArrayOf(0.0), doubleArrayOf(0.0))
+
+        for (line in lines)
+            chart.addSeries(line.lineName, line.xData, line.yData)
 
         SwingWrapper(chart).displayChart()
     }
