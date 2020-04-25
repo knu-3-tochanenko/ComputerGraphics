@@ -2,7 +2,7 @@ import org.knowm.xchart.QuickChart
 import org.knowm.xchart.SwingWrapper
 import org.knowm.xchart.XYChart
 
-class Chart (
+class Chart(
     private val chartName: String = "Chart",
     private val xName: String = "x",
     private val yName: String = "y"
@@ -15,7 +15,8 @@ class Chart (
     }
 
     fun draw() {
-        val chart: XYChart = QuickChart.getChart(chartName, xName, yName, "0, 0", doubleArrayOf(0.0), doubleArrayOf(0.0))
+        val chart: XYChart =
+            QuickChart.getChart(chartName, xName, yName, "0, 0", doubleArrayOf(0.0), doubleArrayOf(0.0))
 
         for (line in lines)
             chart.addSeries(line.lineName, line.xData, line.yData)
