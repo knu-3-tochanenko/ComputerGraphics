@@ -3,7 +3,6 @@ import org.knowm.xchart.SwingWrapper
 import org.knowm.xchart.XYChart
 import org.knowm.xchart.style.lines.SeriesLines
 import org.knowm.xchart.style.markers.SeriesMarkers
-
 import java.awt.Color
 
 class Chart(
