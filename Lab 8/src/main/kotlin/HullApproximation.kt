@@ -4,6 +4,8 @@ class HullApproximation {
         private var lines = mutableListOf<ChartLine>()
 
         fun approximate(dots: List<Dot>, regions: Int): List<Dot> {
+            assert(dots.size > 2)
+
             val sides = getSides(dots)
             val sector = (sides.end.x - sides.start.x) / regions
 
