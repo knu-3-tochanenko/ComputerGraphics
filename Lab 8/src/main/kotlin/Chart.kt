@@ -30,6 +30,10 @@ class Chart(
         }
     }
 
+    fun addLine(line: ChartLine) {
+        lines.add(line)
+    }
+
     fun draw() {
         for (line in lines)
             chart.addSeries(line.lineName, line.xData, line.yData)

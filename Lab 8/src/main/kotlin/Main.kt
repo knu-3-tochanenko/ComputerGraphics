@@ -27,8 +27,12 @@ fun main() {
         Dot(4.1, 0.5)
     )
 
+    val sectors = 4
+
     val chart = Chart()
     chart.addDots(dots)
-    chart.addLine(GiftWrapper.calculate(dots))
+    chart.addLine(HullApproximation.approximate(dots, sectors))
+    for (line in HullApproximation.getLines())
+        chart.addLine(line)
     chart.draw()
 }
