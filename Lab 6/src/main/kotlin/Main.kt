@@ -20,20 +20,4 @@ fun main() {
     chart.addDots(dots)
     chart.addLine(GiftWrapper.calculate(dots))
     chart.draw()
-
-//    val dots = listOf(
-//        Dot(10.0, 10.0),
-//        Dot(0.0, 0.0),
-//        Dot(1.0, 4.0)
-//    )
-//
-//    val chart = Chart()
-//    chart.addDots(dots)
-//    chart.addLine(dots)
-//    chart.draw()
-//
-//    println(GiftWrapper.angle(
-//        Dot(dots[0].x - dots[1].x, dots[0].y - dots[1].y),
-//        Dot(dots[2].x - dots[1].x, dots[2].y - dots[1].y)
-//    ))
 }
