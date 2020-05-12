@@ -7,7 +7,10 @@ class GiftWrapper {
 
             val list = dots.toMutableList()
             val first = mostLeft(dots)
+            list.remove(dots[first])
+            list.add(dots[first])
             result.add(dots[first])
+
 
             var cur = dots[first]
 
@@ -21,7 +24,7 @@ class GiftWrapper {
         }
 
         private fun mostLeft(dots: List<Dot>): Int {
-            var index = 0;
+            var index = 0
             for (dot in dots.withIndex()) {
                 if (dot.value.x < dots[index].x)
                     index = dot.index

@@ -1,5 +1,3 @@
-import kotlin.math.roundToInt
-
 class HullApproximation {
     companion object {
         private var result = mutableListOf<Dot>()
@@ -17,7 +15,7 @@ class HullApproximation {
             var dotSector: Int
 
             for (dot in dots) {
-                dotSector = ((dot.x - sides.start.x) / sector).roundToInt()
+                dotSector = ((dot.x - sides.start.x) / sector).toInt()
                 if (maxDots[dotSector] == null || maxDots[dotSector]!!.y > dot.y)
                     maxDots[dotSector] = dot
                 if (minDots[dotSector] == null || minDots[dotSector]!!.y < dot.y)
@@ -35,8 +33,10 @@ class HullApproximation {
                 }
             }
 
-            return GiftWrapper.calculate(result)
-//            return result
+            result.add(sides.start)
+            result.add(sides.end)
+
+            return GiftWrapper.calculate(result.toMutableList())
         }
 
         private fun getSides(dots: List<Dot>): Line {

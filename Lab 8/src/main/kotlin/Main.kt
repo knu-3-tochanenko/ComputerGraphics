@@ -27,7 +27,7 @@ fun main() {
         Dot(4.1, 0.5)
     )
 
-    val sectors = 4
+    val sectors = 8
 
     val chart = Chart()
     chart.addDots(dots)
