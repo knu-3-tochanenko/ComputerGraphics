@@ -103,6 +103,8 @@ assert(dots.size > 2)
 ```kotlin
 val list = dots.toMutableList()
 val first = mostLeft(dots)
+list.remove(dots[first])
+list.add(dots[first])
 result.add(dots[first])
 ```
 

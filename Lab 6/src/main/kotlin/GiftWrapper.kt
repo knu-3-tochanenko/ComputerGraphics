@@ -7,6 +7,8 @@ class GiftWrapper {
 
             val list = dots.toMutableList()
             val first = mostLeft(dots)
+            list.remove(dots[first])
+            list.add(dots[first])
             result.add(dots[first])
 
             var cur = dots[first]
