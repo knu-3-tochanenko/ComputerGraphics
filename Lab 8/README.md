@@ -22,8 +22,8 @@ data class Dot(
 
 ```kotlin
 data class Line(
-    val start: Dot,
-    val end: Dot
+    var start: Dot,
+    var end: Dot
 )
 ```
 
