@@ -177,7 +177,7 @@ val dots = listOf(
 )
 ```
 
-![result](./images/lab5.png)
+![result](./images/lab6.png)
 
 ## Повний код
 
