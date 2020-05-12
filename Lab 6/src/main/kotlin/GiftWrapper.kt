@@ -3,6 +3,8 @@ class GiftWrapper {
         private var result = mutableListOf<Dot>()
 
         fun calculate(dots: List<Dot>): List<Dot> {
+            assert(dots.size > 2)
+
             val list = dots.toMutableList()
             val first = mostLeft(dots)
             result.add(dots[first])
@@ -31,7 +33,7 @@ class GiftWrapper {
             var next = dots[0]
             var index = 0
             for (i in dots.indices) {
-                if (getSide(next, dot, dots[i]) == -1) {
+                if (getSide(next, dot, dots[i]) == 1) {
                     next = dots[i]
                     index = i
                 }
