@@ -1,3 +1,5 @@
+import kotlin.math.pow
+
 class Tree2D {
     companion object {
         private var result = mutableListOf<Dot>()
@@ -40,12 +42,40 @@ class Tree2D {
                 return
             if (isInRectangle(node.dot, rectangle))
                 result.add(node.dot)
-            findDotsInRectangle(node.left, rectangle)
-            findDotsInRectangle(node.right, rectangle)
+            if (isOutside(node, rectangle)) {
+                println("${node.dot.x} --- ${node.dot.y} for left")
+                findDotsInRectangle(node.left, rectangle)
+            }
+            if (isOutside(node, rectangle)) {
+                println("${node.dot.x} --- ${node.dot.y} for right")
+                findDotsInRectangle(node.right, rectangle)
+            }
+            if (!isOutside(node, rectangle) && !isOutside(node, rectangle))
+                println("${node.dot.x} --- ${node.dot.y} ${"SKIPPED".red()}")
         }
 
-        private fun between(what: Double, start: Double, end: Double): Boolean {
-            return (what in start..end)
+        private fun equalDelta(a: Double, b: Double, delta: Double = .1.pow(8)): Boolean = kotlin.math.abs(a - b) < delta
+
+        private fun isOutside(node: TreeNode, rectangle: Rectangle): Boolean {
+            if (node.x == null && node.y != null) {
+                return if (rectangle.topRight.y < node.y!! || equalDelta(rectangle.topRight.y, node.y!!)) {
+                    true
+                } else if (rectangle.bottomLeft.y < node.y!! || equalDelta(rectangle.bottomLeft.y, node.y!!)) {
+                    true
+                } else {
+                    true
+                }
+            } else if (node.x != null && node.y == null) {
+                return if (rectangle.topRight.x <= node.x!! || equalDelta(rectangle.topRight.x, node.x!!)) {
+                    true
+                } else if (rectangle.bottomLeft.x < node.x!! || equalDelta(rectangle.bottomLeft.x, node.x!!)) {
+                    true
+                } else {
+                    true
+                }
+            }
+
+            return false
         }
 
         private fun findMedian(dots: List<Dot>, type: Split): Int {
