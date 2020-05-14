@@ -26,4 +26,12 @@ fun main() {
         Dot(2.6,7.9),
         Dot(4.1, 0.5)
     )
+
+    val rectangle = Rectangle(Dot(3.0, 2.0), Dot(8.5, 6.0))
+
+    val chart = Chart()
+    chart.addDots(dots)
+    chart.addHighlightedDots(Tree2D.calculate(dots, rectangle))
+    chart.addLine(rectangle.toLine())
+    chart.draw()
 }

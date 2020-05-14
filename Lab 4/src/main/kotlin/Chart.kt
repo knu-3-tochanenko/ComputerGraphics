@@ -19,6 +19,7 @@ class Chart(
 
     private var lines = mutableListOf<ChartLine>()
     private var dots = mutableListOf<Dot>()
+    private var highlightedDots = mutableListOf<Dot>()
 
     fun addLine(dots: List<Dot>) {
         lines.add(ChartLine(dots))
@@ -30,6 +31,12 @@ class Chart(
         }
     }
 
+    fun addHighlightedDots(dots: List<Dot>) {
+        for (i in dots.indices) {
+            this.highlightedDots.add(dots[i])
+        }
+    }
+
     fun addLine(line: ChartLine) {
         lines.add(line)
     }
@@ -37,12 +44,15 @@ class Chart(
     fun draw() {
         for (line in lines)
             chart.addSeries(line.lineName, line.xData, line.yData)
-                .setMarker(SeriesMarkers.CIRCLE).setLineColor(Color.BLACK).setLineStyle(SeriesLines.DASH_DASH);
-
+                .setMarker(SeriesMarkers.CIRCLE).setMarkerColor(Color.BLUE).setLineColor(Color.BLUE).setLineStyle(SeriesLines.DASH_DASH)
 
         for (i in dots.indices)
             chart.addSeries("dot#$i", doubleArrayOf(dots[i].x), doubleArrayOf(dots[i].y))
                 .setMarkerColor(Color.BLACK).setMarker(SeriesMarkers.CIRCLE)
+
+        for (i in highlightedDots.indices)
+            chart.addSeries("dot#${i + dots.size}", doubleArrayOf(highlightedDots[i].x), doubleArrayOf(highlightedDots[i].y))
+                    .setMarkerColor(Color.RED).setMarker(SeriesMarkers.CIRCLE)
 
         SwingWrapper(chart).displayChart()
     }
