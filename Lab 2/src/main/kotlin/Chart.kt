@@ -18,6 +18,7 @@ class Chart(
         )
 
     private var lines = mutableListOf<ChartLine>()
+    private var highlightedLines = mutableListOf<ChartLine>()
     private var dots = mutableListOf<Dot>()
     private var highlightedDots = mutableListOf<Dot>()
 
@@ -37,6 +38,10 @@ class Chart(
         }
     }
 
+    fun addHighlightedLine(line: ChartLine) {
+        highlightedLines.add(line)
+    }
+
     fun addLine(line: ChartLine) {
         lines.add(line)
     }
@@ -44,7 +49,11 @@ class Chart(
     fun draw() {
         for (line in lines)
             chart.addSeries(line.lineName, line.xData, line.yData)
-                .setMarker(SeriesMarkers.CIRCLE).setMarkerColor(Color.BLUE).setLineColor(Color.BLUE).setLineStyle(SeriesLines.DASH_DASH)
+                .setMarker(SeriesMarkers.CIRCLE).setLineStyle(SeriesLines.DASH_DASH)
+
+        for (line in highlightedLines)
+            chart.addSeries(line.lineName, line.xData, line.yData)
+                .setMarker(SeriesMarkers.CIRCLE).setLineStyle(SeriesLines.SOLID)
 
         for (i in dots.indices)
             chart.addSeries("dot#$i", doubleArrayOf(dots[i].x), doubleArrayOf(dots[i].y))
