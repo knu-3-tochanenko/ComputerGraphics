@@ -28,23 +28,6 @@ class Point(var x: Double, var y: Double) : Comparable<Point?> {
     }
 
     companion object {
-        private fun intersect(a: Double, b: Double, c: Double, d: Double): Boolean {
-            var tmpA = a
-            var tmpB = b
-            var tmpC = c
-            var tmpD = d
-            if (tmpA > tmpB) {
-                val temp = tmpA
-                tmpA = tmpB
-                tmpB = temp
-            }
-            if (tmpC > tmpD) {
-                val temp = tmpC
-                tmpC = tmpD
-                tmpD = temp
-            }
-            return tmpA.coerceAtLeast(tmpC) <= tmpB.coerceAtMost(tmpD)
-        }
 
         fun area(a: Point, b: Point, c: Point): Double {
             return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
@@ -61,5 +44,4 @@ class Point(var x: Double, var y: Double) : Comparable<Point?> {
         val comp = x.compareTo(other.x)
         return if (comp != 0) comp else y.compareTo(other.y)
     }
-
 }

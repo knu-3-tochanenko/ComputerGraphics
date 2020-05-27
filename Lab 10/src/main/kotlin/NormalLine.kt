@@ -41,9 +41,11 @@ class NormalLine {
             val midX = (a.end.x + a.start.x) / 2
             val midY = (a.end.y + a.start.y) / 2
             var verticalLine = false
-            if (Point.equal(a.end.x - a.start.x, 0.0)) verticalLine = true
+            if (Point.equal(a.end.x - a.start.x, 0.0))
+                verticalLine = true
             val k = (a.end.y - a.start.y) / (a.end.x - a.start.x)
             val line = NormalLine()
+
             if (Point.equal(k, 0.0)) {
                 line.a = 1.0
                 line.b = 0.0
