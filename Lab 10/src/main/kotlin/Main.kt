@@ -1,8 +1,24 @@
-class Main {
+import javafx.application.Application
+import javafx.fxml.FXMLLoader
+import javafx.scene.Parent
+import javafx.scene.Scene
+import javafx.stage.Stage
+
+class Main : Application() {
+    @Throws(Exception::class)
+    override fun start(primaryStage: Stage?) {
+        val loader = FXMLLoader()
+        loader.location = javaClass.getResource("frame.fxml")
+        val parent: Parent = loader.load()
+        loader.setController(AppController())
+        primaryStage!!.scene = Scene(parent)
+        primaryStage.show()
+    }
+
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("It works!")
+            launch(Main::class.java)
         }
     }
 }
