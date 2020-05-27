@@ -25,10 +25,6 @@ class CircularList<T> {
         return node
     }
 
-    fun getTail(): Node<T>? {
-        return tail
-    }
-
     fun getRoot(): Node<T>? {
         return root
     }
@@ -51,39 +47,5 @@ class CircularList<T> {
         nodeB.prev = nodeA
         root = nodeA
         tail = nodeA.prev
-    }
-
-    fun splitPrev(nodeA: Node<T>, nodeB: Node<T>) {
-        nodeA.prev = nodeB
-        nodeB.next = nodeA
-        root = nodeA
-        tail = nodeA.prev
-    }
-
-    fun remove(iter: Node<T>?) {
-        if (iter == null) return
-        if (root == null) return
-        size--
-        if (root === tail) {
-            if (iter !== root) return
-            root = null
-            tail = null
-            return
-        }
-
-        when {
-            iter === root -> {
-                root = root?.next
-                root?.prev = tail
-            }
-            iter === tail -> {
-                tail = tail?.prev
-                root?.prev = tail
-            }
-            else -> {
-                iter.next?.prev = iter.prev
-                iter.prev?.next = iter.next
-            }
-        }
     }
 }
