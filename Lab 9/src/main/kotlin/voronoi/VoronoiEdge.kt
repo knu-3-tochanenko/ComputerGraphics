@@ -1,3 +1,5 @@
+package voronoi
+
 class VoronoiEdge(
     private val site1: Point,
     private val site2: Point

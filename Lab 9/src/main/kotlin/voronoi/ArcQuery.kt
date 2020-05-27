@@ -1,3 +1,5 @@
+package voronoi
+
 class ArcQuery(private val p: Point?) : ArcKey() {
     override val left: Point?
         get() = p

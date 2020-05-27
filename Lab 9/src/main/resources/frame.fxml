@@ -20,7 +20,7 @@
         <Canvas fx:id="canvas" height="343.0" onMouseClicked="#canvasClick" width="602.0"/>
     </center>
     <right>
-        <Button fx:id="nextButton" mnemonicParsing="false" onMouseClicked="#nextButtonClick" text="Done"
+        <Button fx:id="nextButton" mnemonicParsing="false" onMouseClicked="#nextButtonClick" text="Draw"
                 BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets right="15.0"/>

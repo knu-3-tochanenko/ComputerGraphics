@@ -1,3 +1,5 @@
+package voronoi
+
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
@@ -6,15 +8,16 @@ class Point(val x: Double, val y: Double) : Comparable<Point?> {
     override operator fun compareTo(other: Point?): Int {
         if (other != null) {
             if (x == other.x || java.lang.Double.isNaN(x) && java.lang.Double.isNaN(other.x)) {
-                if (y == other.y) {
+                if (y == other.y)
                     return 0
-                }
                 return if (y < other.y) -1 else 1
             }
         }
+
         if (other != null) {
             return if (x < other.x) -1 else 1
         }
+
         return 0
     }
 

@@ -7,6 +7,8 @@ import javafx.scene.control.MenuItem
 import javafx.scene.input.MouseEvent
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
+import voronoi.Point
+import voronoi.Voronoi
 import java.io.*
 import java.net.URL
 import java.util.*
@@ -103,7 +105,6 @@ class AppController : Initializable {
 
     @FXML
     fun nextButtonClick() {
-        println("Next button click")
         redraw()
         val voronoi = Voronoi(points)
         for (e in voronoi.getEdgeList()) {

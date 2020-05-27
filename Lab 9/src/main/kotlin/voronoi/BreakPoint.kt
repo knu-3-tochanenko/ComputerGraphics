@@ -1,3 +1,5 @@
+package voronoi
+
 import kotlin.math.sqrt
 
 class BreakPoint(

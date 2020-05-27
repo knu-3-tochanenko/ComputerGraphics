@@ -1,3 +1,5 @@
+package voronoi
+
 import java.util.*
 
 
@@ -182,7 +184,7 @@ class Voronoi constructor(sites: ArrayList<Point>) {
                 handleCircleEvent(ce)
             }
         } while (events.size > 0)
-        sweepLoc = MIN_DIM // hack to draw negative infinite points
+        sweepLoc = MIN_DIM
         for (bp in breakPoints) {
             bp!!.finish()
         }
