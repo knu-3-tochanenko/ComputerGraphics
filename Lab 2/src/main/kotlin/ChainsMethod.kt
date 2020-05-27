@@ -1,6 +1,6 @@
 class ChainsMethod(
-    val graph: Graph,
-    val node: GraphNode
+    private val graph: Graph,
+    private val node: GraphNode
 ) {
     val chains by lazy {
         val arrChains = mutableListOf<MutableList<GraphNode>>()
@@ -137,7 +137,7 @@ class ChainsMethod(
         id: Int
     ): Int {
         var chainId = id
-        val list = edgesLeftToRight(edgesOut[node], node)
+        val list = edgesLeftToRight(edgesOut[node])
         val nodes = graph.nodes
         nodes.sortBy { it.dot.y }
 
@@ -169,7 +169,7 @@ class ChainsMethod(
         return chainId
     }
 
-    private fun edgesLeftToRight(edgesId: MutableList<Int>, node: Int): MutableList<Int> {
+    private fun edgesLeftToRight(edgesId: MutableList<Int>): MutableList<Int> {
         for (i in edgesId) {
             for (j in i + 1 until edgesId.size) {
                 if (getSide(
@@ -252,17 +252,21 @@ class ChainsMethod(
             edge = searchEdge(point, chains[mid])
             side = getSide(edge.from, edge.to, point)
             println("Edge ${leftEdge.from} ${leftEdge.to}.")
-            if (side < 0) {
-                r = mid
-            } else if (side > 0) {
-                l = mid
-            } else {
-                if (point == rightEdge.from || point == rightEdge.to) {
-                    println("Point is graph's point.")
+            when {
+                side < 0 -> {
+                    r = mid
+                }
+                side > 0 -> {
+                    l = mid
+                }
+                else -> {
+                    if (point == rightEdge.from || point == rightEdge.to) {
+                        println("Point is graph's point.")
+                        return null
+                    }
+                    println("Point is on graph's edge ${leftEdge.from} ${leftEdge.to}.")
                     return null
                 }
-                println("Point is on graph's edge ${leftEdge.from} ${leftEdge.to}.")
-                return null
             }
         }
 
