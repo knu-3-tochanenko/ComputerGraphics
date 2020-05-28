@@ -49,7 +49,7 @@ class Chart(
     fun draw() {
         for (line in lines)
             chart.addSeries(line.lineName, line.xData, line.yData)
-                .setMarker(SeriesMarkers.CIRCLE).setLineStyle(SeriesLines.DASH_DASH)
+                .setMarker(SeriesMarkers.CIRCLE).setLineColor(Color.BLACK).setLineStyle(SeriesLines.DASH_DASH)
 
         for (line in highlightedLines)
             chart.addSeries(line.lineName, line.xData, line.yData)
