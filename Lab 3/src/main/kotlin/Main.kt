@@ -1,3 +1,6 @@
+import chart.Chart
+import chart.ChartLine
+import chart.Dot
 import graph.Graph
 import graph.Point
 
@@ -23,10 +26,37 @@ fun main() {
     graphviz.writeFile("graphviz", graph)
     graphviz.createPNG("graphviz")
 
+    val lines = mutableListOf<ChartLine>()
+
+    for (i in matrix[0].indices)
+        for (j in matrix[0].indices)
+            if (matrix[i][j])
+                lines.add(
+                    ChartLine(
+                        listOf(
+                            Dot(points[i]!!.x, points[i]!!.y),
+                            Dot(points[j]!!.x, points[j]!!.y)
+                        )
+                    )
+                )
 
 
-    graph.localization(Point(100.0, 100.0))
-    graph.localization(Point(4.0, -5.0))
-    graph.localization(Point(-100.0, -100.0))
-    graph.localization(Point(3.0, 2.0))
+    val dots = arrayListOf(
+        Dot(10.0, 10.0),
+        Dot(-2.0, 0.0),
+        Dot(-10.0, -10.0),
+        Dot(2.0, 1.0)
+    )
+
+    for (dot in dots) {
+        graph.localization(Point(dot.x, dot.y))
+    }
+
+    val chart = Chart()
+    for (line in lines)
+        chart.addLine(line)
+
+    chart.addDots(dots)
+
+    chart.draw()
 }

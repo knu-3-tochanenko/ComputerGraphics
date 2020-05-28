@@ -19,7 +19,7 @@ fun createPNG(fileName: String) {
 }
 
 fun writeFile(fileName: String, graph: Graph) {
-    val file = File("$fileName.txt")
+    val file = File("src/main/resources/$fileName.dot")
     val newFile = file.createNewFile()
     try {
         FileWriter(file).use { writer ->
