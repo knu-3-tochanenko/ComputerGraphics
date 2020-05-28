@@ -1159,7 +1159,7 @@ class Point(val x: Double, val y: Double) : Comparable<Point?> {
 }
 ```
 
-### `.fxml`
+### `frame.fxml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
