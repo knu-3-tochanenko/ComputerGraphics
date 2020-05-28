@@ -24,7 +24,7 @@ fun main() {
         Pair(1, 6)
     )
 
-    val dot = Dot(7.0, 6.0)
+    val dot = Dot(4.0, 5.0)
 
     val graph = Graph(vertexes)
 
