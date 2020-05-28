@@ -7,7 +7,7 @@ class Node {
 
     private var trapezium: Trapezium? = null
 
-    var edge: GEdge? = null
+    var edge: Edge? = null
 
     var median: Double? = null
         private set
@@ -27,7 +27,7 @@ class Node {
         id = i
     }
 
-    constructor(edge: GEdge?) {
+    constructor(edge: Edge?) {
         this.edge = edge
         i++
         id = i

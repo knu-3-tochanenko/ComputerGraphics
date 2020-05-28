@@ -1,19 +1,19 @@
 package graph
 
 
-class GEdge {
-    private val a: GVertex
-    private val b: GVertex
+class Edge {
+    private val a: Vertex
+    private val b: Vertex
     private val middle: Point
     private var name: String? = null
 
-    constructor(a: GVertex, b: GVertex) {
+    constructor(a: Vertex, b: Vertex) {
         this.a = a
         this.b = b
         middle = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
     }
 
-    constructor(copy: GEdge) {
+    constructor(copy: Edge) {
         a = copy.a
         b = copy.b
         middle = copy.middle
@@ -23,11 +23,11 @@ class GEdge {
         this.name = name
     }
 
-    fun getA(): GVertex {
+    fun getA(): Vertex {
         return a
     }
 
-    fun getB(): GVertex {
+    fun getB(): Vertex {
         return b
     }
 
@@ -82,8 +82,8 @@ class GEdge {
     }
 
     fun middleXInInterval(yMin: Double, yMax: Double): Double {
-        val top: GVertex
-        val bottom: GVertex
+        val top: Vertex
+        val bottom: Vertex
         if (java.lang.Double.compare(a.y, b.y) > 0) {
             top = a
             bottom = b

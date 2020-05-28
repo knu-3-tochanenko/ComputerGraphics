@@ -9,45 +9,45 @@ import java.util.function.ToDoubleFunction
 import kotlin.collections.LinkedHashSet
 
 class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
-    private val vertexes //sorted by y coordinate
-            : MutableList<GVertex>
-    private val edges: MutableList<GEdge>
+    private val vertices //sorted by y coordinate
+            : MutableList<Vertex>
+    private val edges: MutableList<Edge>
     private val N: Int
     private val trapezium: Trapezium
     var myRoot: Node
-    fun buildTrapezium(V: List<GVertex>, E: MutableList<GEdge>, T: Trapezium?): Node {
-        if (V.size == 0) {
+    fun buildTrapezium(v: List<Vertex>, e: MutableList<Edge>, T: Trapezium?): Node {
+        if (v.size == 0) {
             //System.out.println(T);
             return Node(T, 0) //leaf
         }
-        val Edg: MutableList<MutableList<GEdge>> =
-            ArrayList<MutableList<GEdge>>() //edges of trapezium
-        val Vert: MutableList<MutableList<GVertex>> =
-            ArrayList<MutableList<GVertex>>() //vertexes of trapezium sorted by y-coordinate
+        val Edg: MutableList<MutableList<Edge>> =
+            ArrayList<MutableList<Edge>>() //edges of trapezium
+        val Vert: MutableList<MutableList<Vertex>> =
+            ArrayList<MutableList<Vertex>>() //vertexes of trapezium sorted by y-coordinate
         val U: MutableList<MutableList<Node>> =
             ArrayList<MutableList<Node>>() //list of trapeziums
         val Tr: Array<Trapezium?> = arrayOfNulls<Trapezium>(2)
         var weight = 0
         for (i in 0..1) {
-            Edg.add(ArrayList<GEdge>())
-            Vert.add(ArrayList<GVertex>())
+            Edg.add(ArrayList<Edge>())
+            Vert.add(ArrayList<Vertex>())
             U.add(ArrayList<Node>())
             Tr[i] = Trapezium()
         }
         /*Trapezium T1 = new Trapezium();
         Trapezium T2 = new Trapezium();*/
-        val yMed: Double = V[(V.size - 1) / 2]!!.y //mediana
+        val yMed: Double = v[(v.size - 1) / 2]!!.y //mediana
         Tr[0]!!.minY = T!!.minY
         Tr[0]!!.maxY = yMed
         Tr[1]!!.minY = yMed
         Tr[1]!!.maxY = T!!.maxY
-        E.sortWith(Comparator.comparingDouble<GEdge>(ToDoubleFunction<GEdge> { obj: GEdge ->
+        e.sortWith(Comparator.comparingDouble<Edge>(ToDoubleFunction<Edge> { obj: Edge ->
             obj.middleXInInterval(
                 Tr[0]!!.minY,
                 Tr[0]!!.maxY
             )
         }))
-        for (e in E) {
+        for (e in e) {
             for (i in 0..0) {
                 val `in`: Int = Tr[i]!!.edgeBelongs(e)
                 //e has end in Tr[i]
@@ -62,10 +62,10 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
                         weight++
                     }
                     //remove duplicates
-                    val set: Set<GVertex> = LinkedHashSet<GVertex>(Vert[i])
+                    val set: Set<Vertex> = LinkedHashSet<Vertex>(Vert[i])
                     Vert[i].clear()
                     Vert[i].addAll(set)
-                    Vert[i].sortWith(Comparator.comparingDouble<GVertex>({ it.y }))
+                    Vert[i].sortWith(Comparator.comparingDouble<Vertex>({ it.y }))
                 } else if (`in` == 0 || e === Tr[i]!!.right) {
                     Edg[i].add(e)
                     if (Tr[i]!!.left == null) {
@@ -91,13 +91,13 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
                 }
             }
         }
-        E.sortWith(Comparator.comparingDouble<GEdge>(ToDoubleFunction<GEdge> { obj: GEdge ->
+        e.sortWith(Comparator.comparingDouble<Edge>(ToDoubleFunction<Edge> { obj: Edge ->
             obj.middleXInInterval(
                 Tr[1]!!.minY,
                 Tr[1]!!.maxY
             )
         }))
-        for (e in E) {
+        for (e in e) {
             for (i in 1..1) {
                 val `in`: Int = Tr[i]!!.edgeBelongs(e)
                 //e has end in Tr[i]
@@ -112,10 +112,10 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
                         weight++
                     }
                     //remove duplicates
-                    val set: Set<GVertex> = LinkedHashSet<GVertex>(Vert[i])
+                    val set: Set<Vertex> = LinkedHashSet<Vertex>(Vert[i])
                     Vert[i].clear()
                     Vert[i].addAll(set)
-                    Vert[i].sortWith(Comparator.comparingDouble<GVertex>({ it.y }))
+                    Vert[i].sortWith(Comparator.comparingDouble<Vertex>({ it.y }))
                 } else if (`in` == 0 || e === Tr[i]!!.right) {
                     Edg[i].add(e)
                     if (Tr[i]!!.left == null) {
@@ -231,7 +231,7 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
             }
             return
         } else if (root.edge != null) {
-            val edge: GEdge? = root.edge
+            val edge: Edge? = root.edge
             if (edge!!.getSide(point) == 0) {
                 println("point is on the edge $edge")
                 return
@@ -252,43 +252,43 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
 
     init {
         N = points.size
-        vertexes = ArrayList<GVertex>(N)
-        edges = ArrayList<GEdge>()
+        vertices = ArrayList<Vertex>(N)
+        edges = ArrayList<Edge>()
         for (p in points) {
-            vertexes.add(GVertex(p!!))
+            vertices.add(Vertex(p!!))
         }
         for (i in 0 until N) {
             for (j in i until N) {
                 if (matrix[i][j]) {
-                    edges.add(GEdge(vertexes[i], vertexes[j]))
+                    edges.add(Edge(vertices[i], vertices[j]))
                 }
             }
         }
-        vertexes.sortWith(Comparator.comparingDouble<GVertex>({ it.y }))
-        val xSortedVetrtexes: MutableList<GVertex> = ArrayList<GVertex>(N)
-        xSortedVetrtexes.addAll(vertexes)
-        xSortedVetrtexes.sortWith(Comparator.comparingDouble<GVertex>({ it.x }))
-        val left = GEdge(
-            GVertex(xSortedVetrtexes[0].x, vertexes[0].y),
-            GVertex(xSortedVetrtexes[0].x, vertexes[N - 1].y)
+        vertices.sortWith(Comparator.comparingDouble<Vertex>({ it.y }))
+        val xSortedVetrtexes: MutableList<Vertex> = ArrayList<Vertex>(N)
+        xSortedVetrtexes.addAll(vertices)
+        xSortedVetrtexes.sortWith(Comparator.comparingDouble<Vertex>({ it.x }))
+        val left = Edge(
+            Vertex(xSortedVetrtexes[0].x, vertices[0].y),
+            Vertex(xSortedVetrtexes[0].x, vertices[N - 1].y)
         )
-        val right = GEdge(
-            GVertex(xSortedVetrtexes[N - 1].x, vertexes[0].y),
-            GVertex(xSortedVetrtexes[N - 1].x, vertexes[N - 1].y)
+        val right = Edge(
+            Vertex(xSortedVetrtexes[N - 1].x, vertices[0].y),
+            Vertex(xSortedVetrtexes[N - 1].x, vertices[N - 1].y)
         )
-        trapezium = Trapezium(left, right, vertexes[0].y, vertexes[N - 1].y)
+        trapezium = Trapezium(left, right, vertices[0].y, vertices[N - 1].y)
         edges.add(left)
         edges.add(right)
-        edges.sortWith(Comparator.comparingDouble<GEdge>({ obj: GEdge ->
+        edges.sortWith(Comparator.comparingDouble<Edge>({ obj: Edge ->
             obj.middleXInInterval(
-                vertexes[0].y,
-                vertexes[N - 1].y
+                vertices[0].y,
+                vertices[N - 1].y
             )
         }))
         for (i in edges.indices) {
             edges[i].setName("e$i")
         }
-        myRoot = buildTrapezium(vertexes, edges, trapezium)
+        myRoot = buildTrapezium(vertices, edges, trapezium)
     }
 
     fun root() = myRoot

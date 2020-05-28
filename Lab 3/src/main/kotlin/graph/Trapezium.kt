@@ -1,13 +1,13 @@
 package graph
 
 class Trapezium {
-    var left: GEdge? = null
-    var right: GEdge? = null
+    var left: Edge? = null
+    var right: Edge? = null
     var minY = 0.0
     var maxY = 0.0
 
     constructor() {}
-    constructor(left: GEdge?, right: GEdge?, minY: Double, maxY: Double) {
+    constructor(left: Edge?, right: Edge?, minY: Double, maxY: Double) {
         this.left = left
         this.right = right
         this.minY = minY
@@ -19,7 +19,7 @@ class Trapezium {
     * -1 - no
     * 0 - intersection
     */
-    fun edgeBelongs(e: GEdge): Int {
+    fun edgeBelongs(e: Edge): Int {
         if (java.lang.Double.compare(e.ay, minY) > 0 && java.lang.Double.compare(e.ay, maxY) < 0 ||
             java.lang.Double.compare(e.by, minY) > 0 && java.lang.Double.compare(e.by, maxY) < 0
         ) {
@@ -47,7 +47,7 @@ class Trapezium {
         } else -1
     }
 
-    fun vertexBelongs(v: GVertex): Boolean {
+    fun vertexBelongs(v: Vertex): Boolean {
         return java.lang.Double.compare(v.y, minY) > 0 && java.lang.Double.compare(v.y, maxY) < 0
     }
 
