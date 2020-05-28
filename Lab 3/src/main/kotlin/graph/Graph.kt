@@ -15,11 +15,11 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
     private val N: Int
     private val trapezium: Trapezium
     var myRoot: Node
+
     fun buildTrapezium(v: List<Vertex>, e: MutableList<Edge>, T: Trapezium?): Node {
-        if (v.size == 0) {
-            //System.out.println(T);
-            return Node(T, 0) //leaf
-        }
+        if (v.size == 0)
+            return Node(T, 0)
+        
         val Edg: MutableList<MutableList<Edge>> =
             ArrayList<MutableList<Edge>>() //edges of trapezium
         val Vert: MutableList<MutableList<Vertex>> =
@@ -34,9 +34,8 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
             U.add(ArrayList<Node>())
             Tr[i] = Trapezium()
         }
-        /*Trapezium T1 = new Trapezium();
-        Trapezium T2 = new Trapezium();*/
-        val yMed: Double = v[(v.size - 1) / 2]!!.y //mediana
+
+        val yMed: Double = v[(v.size - 1) / 2]!!.y
         Tr[0]!!.minY = T!!.minY
         Tr[0]!!.maxY = yMed
         Tr[1]!!.minY = yMed
@@ -91,12 +90,14 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
                 }
             }
         }
+
         e.sortWith(Comparator.comparingDouble<Edge>(ToDoubleFunction<Edge> { obj: Edge ->
             obj.middleXInInterval(
                 Tr[1]!!.minY,
                 Tr[1]!!.maxY
             )
         }))
+
         for (e in e) {
             for (i in 1..1) {
                 val `in`: Int = Tr[i]!!.edgeBelongs(e)
@@ -141,6 +142,7 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
                 }
             }
         }
+
         val root = Node(yMed, weight + 1)
         root.left = balance(U[0])
         root.right = balance(U[1])
@@ -149,14 +151,10 @@ class Graph(points: Array<Point?>, matrix: Array<BooleanArray>) {
 
     fun balance(U: List<Node>): Node? {
         val edgs: MutableList<Node> = ArrayList<Node>()
-        //List<Node> trapeziums = new ArrayList<>();
         val leaves: MutableList<Node> = ArrayList<Node>()
-        //int weight = 0;
         for (i in U.indices) {
             if (i % 2 == 0) {
-                //trapeziums.add(U.get(i));
                 leaves.add(U[i])
-                //weight += U.get(i).getWeight();
             } else {
                 edgs.add(U[i])
             }
